@@ -1,10 +1,10 @@
-set nocompatible      " We're running Vim, not Vi!
-set guifont=Monaco\ 12
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
 " VUNDLE BEGIN
 " ============
+set nocompatible      " We're running Vim, not Vi!
+set guifont=Monaco\ 15
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
@@ -16,13 +16,11 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-rails.git'
 Bundle 'ervandew/supertab'
 Bundle 'msanders/snipmate.vim'
-Bundle 'solarnz/thrift.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'scrooloose/nerdtree'
 " 希望换成更好的注释工具
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-repeat'
-Bundle 'jcf/vim-latex'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-vividchalk'
 Bundle 'tpope/vim-markdown'
@@ -81,7 +79,6 @@ set ruler
 set nobackup
 set showcmd
 set wrap
-"set autochdir
 "set cursorcolumn
 "set cursorline
 set tabstop=2 shiftwidth=2 softtabstop=2
@@ -118,119 +115,51 @@ let g:speckyRunSpecCmd = "spec -fs -c"
 let g:speckyRunRdocCmd = "fri -L -f plain"
 let g:speckyWindowType = 1
 
-let g:vim_markdown_folding_disabled=1
 "" viki 用wiki的格式来记录信息的工具
 "let g:vikiNameSuffix=".viki"
 "let g:vikiUseParentSuffix = 1
 "autocmd! BufRead,BufNewFile *.viki set filetype=viki
 
+autocmd! BufRead,BufNewFile *.txt set filetype=viki
+
 "初始窗口最大化
 "au GUIEnter * simalt ~x
 
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2011 Apr 15
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file
-endif
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
 noremap <silent> <leader>v v$
-nnoremap K k
+" 复制粘贴
+noremap <silent> <leader>p "+p
+noremap <silent> <leader>y "+y
+"" 快速查找
+noremap <silent> <leader>ff :FufFile!<CR>
+noremap <silent> <leader>fa :FufCoverageFile!<CR>
+noremap <silent> <leader>fb :FufBuffer!<CR>
+noremap <silent> <leader>fd :FufDir!<CR>
+noremap <silent> <leader>fm :FufMruFile!<CR>
+noremap <silent> <leader>fw :FufFileWithCurrentBufferDir!<CR>
+noremap <silent> <leader>fc :FufMruCmd!<CR>
 
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
-
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-    au!
-
-    " For all text files set 'textwidth' to 78 characters.
-    autocmd FileType text setlocal textwidth=78
-
-    " When editing a file, always jump to the last known cursor position.
-    " Don't do it when the position is invalid or when inside an event handler
-    " (happens when dropping a file on gvim).
-    " Also don't do it when the mark is in the first line, that is the default
-    " position when opening a file.
-    autocmd BufReadPost *
-          \ if line("'\"") > 1 && line("'\"") <= line("$") |
-          \   exe "normal! g`\"" |
-          \ endif
-
-  augroup END
-
-else
-
-  set autoindent " always set autoindenting on
-
-endif " has("autocmd")
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-        \ | wincmd p | diffthis
-endif
-
+" 窗口切换
+noremap <silent> H <C-W><C-H>
+noremap <silent> L <C-W><C-L>
+" 文件夹树和tag列表以及画图工具
+noremap <silent> <F1> :NERDTreeToggle<CR>
+noremap <silent> <F2> :Tlist<CR>
+" Commmand-T: 查找文件
+noremap <silent> <F8> :CommandT<CR>
+noremap <silent> <leader>ts :call ToggleSketch()<CR>
+" tabnew
+nnoremap <silent> tt :tabnew<CR>
+nnoremap <silent> <C-A> <Esc>ggVG
+nnoremap <silent> = <C-I>
+nnoremap <silent> - <C-O>
+" 退出和保存
+nnoremap <C-S> :w<CR>
+nnoremap <C-Q> :q<CR>
 
 " sudo apt-get install ack-grep
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 " CTRL-P BEGIN
 "
@@ -238,14 +167,54 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip  " MacOSX/Linux
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
 let g:ctrlp_max_height = 30
+"
+" CTRL-P END
 
-augroup mkd
-  autocmd BufRead *.mkd,*.markdown set ai formatoptions=tcroqn2 comments=n:>
-augroup END
+" Tabularize {
+"if exists(":Tabularize")
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+"endif
+" }
 
+" Fugitive {
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+" }
+
+"" 使用空格翻页
+"" nnoremap <silent> <space> <C-F>
+"
+"" 当处于wrap模式时，让通常的操作键作用于视觉上的行
+"" 只有在set wrap? == 'nowrap' 的情况下才适用
+""nnoremap <silent> j gj
+""nnoremap <silent> k gk
+""nnoremap <silent> 0 g0
+""nnoremap <silent> $ g$
+""nnoremap <silent> ^ g^
+"
+"augroup mkd
+"  autocmd BufRead *.mkd,*.markdown set ai formatoptions=tcroqn2 comments=n:>
+"augroup END
+
+iabbrev -- --------------------
+iabbrev === ==========
+iabbrev ** **********
+iabbrev ## #####
+iabbrev WR !!!!! WARNING !!!!!
+iabbrev PA #{PATH}/#{@project}
+iabbrev edn end
+abbrev so source ~/.vimrc
+noreabbr Q q
+noreabbr W w
 " 自己添加的运行ruby指令
 let g:runRubyKey = "<leader>rr"
 let g:toggleRubyCommentKey = "<leader>rc"
+
 let g:Powerline_symbols = 'fancy'
 
 "" txtbrowser
@@ -268,89 +237,3 @@ au BufRead,BufNewFile *.txt setlocal ft=ruby
 "" vimim end
 "256配色"
 set t_Co=256
-set nobackup       "no backup files
-set nowritebackup  "only in case you don't want a backup file while editing
-
-autocmd! filetype qf nnoremap <buffer> <leader>l <C-W><Enter><C-W>L
-
-
-" ABBREVIATIONS START
-" ==========
-
-inoreabbr pry require "pry";binding.pry
- inoreabbr debugger require "debugger/completion"; debugger
-iabbrev edn end
-abbrev so source ~/.vimrc<CR>
-noreabbr Q q
-noreabbr W w
-iabbr -p puts "--------------------------------------"
-
-" ABBREVIATIONS END
-" ==========
-
-
-" MAPING START
-" ==========
-
-" tags
-map <Leader>rt :!ctags --extra=+f --exclude=.git --exclude=.js --exclude=.css --exclude=log -R * `rvm gemdir`/gems/*<CR><CR>
-
-" 窗口切换
-noremap <silent> H <C-W><C-H>
-noremap <silent> L <C-W><C-L>
-
-" 跳转记录文件
-nnoremap <silent> <leader><leader>r :e ~/Desktop/records/records.markdown<CR>
-
-" 文件夹树和tag列表以及画图工具
-noremap <silent> <leader>tt :NERDTreeToggle<CR>
-noremap <silent> <F2> :NERDTreeFind<CR>
-noremap <silent> <F3> :Tlist<CR>
-
-" Commmand-T: 查找文件
-noremap <silent> <F8> :CommandT<CR>
-
-" tabnew
-nnoremap <silent> tt :tabnew<CR>
-nnoremap <silent> <C-A> <Esc>ggVG
-nnoremap <silent> = <C-I>
-nnoremap <silent> - <C-O>
-
-" 退出和保存
-nnoremap <C-S> :w<CR>
-nnoremap <C-Q> :q<CR>
-
-" 复制粘贴
-noremap <silent> <leader>p "+p
-noremap <silent> <leader>y "+y
-
-"" 快速查找
-noremap <silent> <leader>ff :FufFile!<CR>
-noremap <silent> <leader>fa :FufCoverageFile!<CR>
-noremap <silent> <leader>fb :FufBuffer!<CR>
-noremap <silent> <leader>fd :FufDir!<CR>
-noremap <silent> <leader>fm :FufMruFile!<CR>
-noremap <silent> <leader>fw :FufFileWithCurrentBufferDir!<CR>
-noremap <silent> <leader>fc :FufMruCmd!<CR>
-
-""Git相关
-noremap <silent> <leader>df :Gdiff<CR>
-noremap <silent> <leader>gb :Gblame<CR>
-noremap <silent> <leader>gs :Gstatus<CR>
-
-" 其他
-nnoremap <silent> K k
-nnoremap <silent> U u
-
-" for latex
-inoremap $<TAB> $$<ESC>i
-inoremap \emph<TAB> \emph{}<ESC>i
-inoremap {<TAB> {}<ESC>i
-inoremap (<TAB> ()<ESC>i
-inoremap [<TAB> []<ESC>i
-" MAPING END
-" ==========
-
-" 配色
-colorscheme railscasts
-"colorscheme solarized
