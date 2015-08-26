@@ -1,7 +1,5 @@
 vim_config
 ==========
-
-* cp -r bundle ~/.vim
-* cp -r snipMate ~/.vim
+* git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 * cp .vimrc ~/.vimrc
-* cp .gvimrc ~/.gvimrc
+* :PlunginInstall
