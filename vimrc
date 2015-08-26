@@ -1,291 +1,282 @@
-set nocompatible      " We're running Vim, not Vi!
-set guifont=*
-set guifont=Monaco\ 20
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible
+filetype off
 
-" VUNDLE BEGIN
-" ============
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
 
-" let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/vimshell.vim'
+"Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neosnippet'
 
-" original repos on github
-Bundle 'mileszs/ack.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails.git'
-Bundle 'ervandew/supertab'
-Bundle 'msanders/snipmate.vim'
-"Bundle 'solarnz/thrift.vim'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'scrooloose/nerdtree'
-"Bundle 'sketch.vim'
-" 希望换成更好的注释工具
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'tpope/vim-repeat'
-Bundle 'jcf/vim-latex'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-vividchalk'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-ragtag'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-rake'
-Bundle 'scrooloose/syntastic'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'godlygeek/tabular'
-Bundle 'majutsushi/tagbar'
-Bundle 'greyblake/vim-preview'
-Bundle 'jpo/vim-railscasts-theme'
-Bundle 'fatih/molokai'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-vividchalk'
 
-"http://www.vim.org/scripts/script.php?script_id=40
-Bundle 'https://github.com/vim-scripts/DrawIt.git'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-scripts/matchit.zip'
+Plugin 'vim-scripts/tComment'
+Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdtree'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'scrooloose/syntastic'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'majutsushi/tagbar'
+Plugin 'terryma/vim-multiple-cursors'
+"Plugin 'mhinz/vim-signify'
+Plugin 'honza/vim-snippets'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'mbbill/undotree'
+Plugin 'jiangmiao/auto-pairs'
+"Plugin 'gregsexton/gitv'
+Plugin 'tomasr/molokai'
+Plugin 'tpope/vim-ragtag'
+Plugin 'mileszs/ack.vim'
+" Plugin 'rking/ag.vim'
+" Plugin 'skalnik/vim-vroom'
+call vundle#end()
 
-"Bundle 'L9'
-"Bundle 'FuzzyFinder'
-Bundle 'taglist.vim'
-Bundle 'Specky'
-Bundle 'matchit.zip'
-Bundle 'Mark--Karkat'
-Bundle 'bufexplorer.zip'
-Bundle 'grep.vim'
-Bundle 'ZoomWin'
-
-" VUNDLE END
-" ==========
-
-syntax on             " Enable syntax highlighting
-filetype on           " Enable filetype detection
-filetype indent on    " Enable filetype-specific indenting
-filetype plugin on    " Enable filetype-specific plugins
-compiler ruby         " Enable compiler support for ruby
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
+filetype plugin indent on
+compiler ruby
 
 set autoindent
 set hlsearch
 set incsearch
 set number
-set expandtab
 set ruler
-set nobackup
 set showcmd
-set wrap
-"set autochdir
-"set cursorcolumn
-"set cursorline
+set expandtab
+set splitright
+set diffopt+=vertical
 set tabstop=2 shiftwidth=2 softtabstop=2
-set list
-set listchars=tab:,.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
+set list listchars=tab:»▸,trail:·,nbsp:·
 set laststatus=2
-"set linespace=0 " No extra spaces between rows"
-set wildmenu " show list instead of just completing
-set wildmode=list:longest,full " command <Tab> completion, list matches, then longest common part, then all.
-
+"set wildmenu
+set wildmode=list:longest,list:full
 set encoding=utf-8
-set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1 " 如果你要打开的文件编码不在此列，那就添加进去
+set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 set termencoding=utf-8
+set tags=./tags;$HOME
+set nobackup
+set noswapfile
 
-" Load matchit (% to bounce from do to end, etc.)
+"if exists('+colorcolumn')
+"  set colorcolumn=80
+"else
+"  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+"endif
+
+autocmd BufNewFile,BufRead *.html.erb set filetype=html.eruby
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" basic key mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap j gj
+nnoremap k gk
+nnoremap / /\v
+vnoremap / /\v
+
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-l> <C-w>l
+
 runtime! macros/matchit.vim
 
-let g:vim_markdown_folding_disabled=1
+function! InsertTabWrapper()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] =~ '\s'
+    return "\<Tab>"
+  else
+    return "\<C-n>"
+  endif
+endfunction
+inoremap <Tab>   <C-r>=InsertTabWrapper()<CR>
+inoremap <S-Tab> <C-p>
 
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
+let mapleader = " "
+
+nnoremap <leader><leader>   <c-^>
+nnoremap <silent> <leader>d :noh<CR>
+nnoremap <silent> <leader>b :Tagbar<CR>
+nnoremap <silent> <leader>c :VimShell<CR>
+nnoremap <silent> <leader>u :UndotreeToggle<CR>
+
+function! MyToggleNERDTreeFind()
+  if nerdtree#isTreeOpen()
+    NERDTreeClose
+  else
+    NERDTreeFind
+  endif
+endfunction
+noremap <silent> <leader>t :call MyToggleNERDTreeFind()<CR>
+
+function! s:ZoomToggle() abort
+  if exists('t:zoomed') && t:zoomed
+    execute t:zoom_winrestcmd
+    let t:zoomed = 0
+  else
+    let t:zoom_winrestcmd = winrestcmd()
+    resize
+    vertical resize
+    let t:zoomed = 1
+  endif
+endfunction
+command! ZoomToggle call s:ZoomToggle()
+nnoremap <silent> <leader>o :ZoomToggle<CR>
+
+vmap <Enter> <Plug>(EasyAlign)
+nmap ga      <Plug>(EasyAlign)
+
+let g:vimshell_editor_command='/usr/local/bin/vim'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" unite
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:unite_source_history_yank_enable = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"nnoremap <C-p>     :<C-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <leader>f :<C-u>Unite -start-insert file_rec/async:!<CR>
+nnoremap <leader>s :<C-u>Unite -auto-preview grep:.<CR>
+nnoremap <leader>e :<C-u>Unite  buffer bookmark<CR>
+"nnoremap <leader>r :<C-u>Unite  file_mru<CR>
+nnoremap <leader>y :<C-u>Unite  history/yank<CR>
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  set number
+  imap <buffer> <C-j> <Plug>(unite_select_next_line)
+  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+endfunction
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts =
+        \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
+        \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+  let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_rec_async_command =
+        \ 'ag --follow --nocolor --nogroup --hidden -g ""'
 endif
 
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neocomplete
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:neocomplete#enable_at_startup = 1
+" let g:neocomplete#enable_smart_case = 1
+" let g:neocomplete#sources#syntax#min_keyword_length = 2
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+"   return neocomplete#close_popup() . "\<CR>"
+" endfunction
+" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+" "<C-l> never works: https://github.com/Shougo/neocomplete.vim/issues/334
+" inoremap <C-l> <C-x><C-o>
+" inoremap <expr><BS>  neocomplete#smart_close_popup()."\<C-h>"
+" autocmd FileType ruby       setlocal omnifunc=rubycomplete#Complete
+" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType html       setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType css        setlocal omnifunc=csscomplete#CompleteCSS
+"  if !exists('g:neocomplete#force_omni_input_patterns')
+"    let g:neocomplete#force_omni_input_patterns = {}
+"  endif
+"  let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+" 
+" function! Multiple_cursors_before()
+"   if exists(':NeoCompleteLock')==2
+"     exe 'NeoCompleteLock'
+"   endif
+" endfunction
+" function! Multiple_cursors_after()
+"   if exists(':NeoCompleteUnlock')==2
+"     exe 'NeoCompleteUnlock'
+"   endif
+" endfunction
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neosnippet
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+imap <expr><C-j> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: "\<C-j>"
+smap <expr><C-j> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: "\<C-j>"
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
-if has("vms")
-  set nobackup  " do not keep a backup file, use versions instead
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" easymotion
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase  = 1
+map f <Plug>(easymotion-bd-w)
+map F <Plug>(easymotion-sn)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" colors
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has('gui_running')
+  set background=light
+  colorscheme solarized
+  highlight SignifySignAdd    gui=bold guibg=NONE guifg=#009900
+  highlight SignifySignDelete gui=bold guibg=NONE guifg=#ff2222
+  highlight SignifySignChange gui=bold guibg=NONE guifg=#bbbb00
 else
-  set backup    " keep a backup file
+  highlight SignifySignAdd    cterm=bold ctermbg=NONE ctermfg=119
+  highlight SignifySignDelete cterm=bold ctermbg=NONE ctermfg=167
+  highlight SignifySignChange cterm=bold ctermbg=NONE ctermfg=227
 endif
-set history=50  " keep 50 lines of command line history
-set ruler       " show the cursor position all the time
-set showcmd     " display incomplete commands
-set incsearch   " do incremental searching
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-noremap <silent> <leader>v v$h
-nnoremap K k
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
-
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-    au!
-
-    " For all text files set 'textwidth' to 78 characters.
-    autocmd FileType text setlocal textwidth=78
-
-    " When editing a file, always jump to the last known cursor position.
-    " Don't do it when the position is invalid or when inside an event handler
-    " (happens when dropping a file on gvim).
-    " Also don't do it when the mark is in the first line, that is the default
-    " position when opening a file.
-    autocmd BufReadPost *
-          \ if line("'\"") > 1 && line("'\"") <= line("$") |
-          \   exe "normal! g`\"" |
-          \ endif
-
-  augroup END
-
-else
-
-  set autoindent " always set autoindenting on
-
-endif " has("autocmd")
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-        \ | wincmd p | diffthis
-endif
-
-
-" sudo apt-get install ack-grep
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
-" CTRL-P BEGIN
-"
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip  " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
-let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-let g:ctrlp_max_height = 30
-
-augroup mkd
-  autocmd BufRead *.mkd,*.markdown set ai formatoptions=tcroqn2 comments=n:>
-augroup END
-
-" 自己添加的运行ruby指令
-let g:runRubyKey = "<leader>rr"
-let g:toggleRubyCommentKey = "<leader>rc"
-let g:Powerline_symbols = 'fancy'
-
-"" txtbrowser
-au BufRead,BufNewFile *.txt setlocal ft=ruby
-
-set t_Co=256
-set nobackup       "no backup files
-set nowritebackup  "only in case you don't want a backup file while editing
-
-autocmd! filetype qf nnoremap <buffer> <leader>l <C-W><Enter><C-W>L
-
-
-" ABBREVIATIONS START
-" ==========
-
-inoreabbr pry require "pry";binding.pry
-iabbrev edn end
-abbrev so source ~/.vimrc<CR>
-noreabbr Q q
-noreabbr W w
-iabbr -p puts "--------------------------------------"
-
-" ABBREVIATIONS END
-" ==========
-map <F3> :call ToggleSketch()<CR>
-
-" MAPING START
-" ==========
+highlight clear SignColumn
 
 " tags
-map <Leader>rt :!ctags --extra=+f --exclude=.git --exclude=.js --exclude=.css --exclude=log -R * `rvm gemdir`/gems/*<CR><CR>
+map <Leader>rt :!ctags --extra=+f --exclude=.git --exclude=.js --exclude=.css --exclude=log --exclude=.log -R * `gem environment gemdir`/gems/*<CR><CR>
+"bundle show rails
 
 " 窗口切换
 noremap <silent> H <C-W><C-H>
 noremap <silent> L <C-W><C-L>
 
-" 跳转记录文件
-nnoremap <silent> <leader><leader>r :e ~/Desktop/records/records.markdown<CR>
+abbr pry require "pry";binding.pry
+abbr edn end
+abbrev so source ~/.vimrc<CR>
 
-" 文件夹树和tag列表以及画图工具
-noremap <silent> <leader>tt :NERDTreeToggle<CR>
-noremap <silent> <F2> :NERDTreeFind<CR>
-noremap <silent> <F3> :Tlist<CR>
-
-" tabnew
 nnoremap <silent> tt :tabnew<CR>
-nnoremap <silent> <C-A> <Esc>ggVG
 nnoremap <silent> = <C-I>
 nnoremap <silent> - <C-O>
 
-" 退出和保存
-nnoremap <C-S> :w<CR>
-nnoremap <C-Q> :q<CR>
+nnoremap <silent> <leader>t :NERDTreeToggle<CR>
+nnoremap <silent> <leader>x :NERDTreeFind<CR>
 
-" 复制粘贴
-noremap <silent> <leader>p "+p
-noremap <silent> <leader>y "+y
+nnoremap <silent> <leader>w :w<CR>
+nnoremap <silent> <leader>q :q<CR>
 
-"" 快速查找
-noremap <silent> <leader>ff :FufFile!<CR>
-noremap <silent> <leader>fa :FufCoverageFile!<CR>
-noremap <silent> <leader>fb :FufBuffer!<CR>
-noremap <silent> <leader>fd :FufDir!<CR>
-noremap <silent> <leader>fm :FufMruFile!<CR>
-noremap <silent> <leader>fw :FufFileWithCurrentBufferDir!<CR>
-noremap <silent> <leader>fc :FufMruCmd!<CR>
+noremap <silent> K k
+noremap <silent> U u
 
-""Git相关
+nnoremap <silent> <leader>v v$h
+nnoremap <silent> <leader>a :e ~/Documents/records/records.markdown<CR>
+nnoremap <silent> <leader>m :e ~/workspace/rails_guides/source/<CR>
+
 noremap <silent> <leader>df :Gdiff<CR>
 noremap <silent> <leader>gb :Gblame<CR>
 noremap <silent> <leader>gs :Gstatus<CR>
 
-" 其他
-nnoremap <silent> K k
-nnoremap <silent> U u
-
-" for latex
-inoremap $<TAB> $$<ESC>i
-inoremap \emph<TAB> \emph{}<ESC>i
-inoremap {<TAB> {<SPACE>}<ESC>i<SPACE><ESC>i
-inoremap (<TAB> ()<ESC>i
-inoremap [<TAB> []<ESC>i
-" MAPING END
-" ==========
-
-" 配色
-"colorscheme railscasts
-"colorscheme solarized
-colorscheme molokai
-
+"let Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
