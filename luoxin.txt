@@ -1,4 +1,4 @@
-*luoxin*	罗昕的vim相关配置文件说明
+*luoxin*	大佬罗的vim相关配置文件说明
 
 作者: 罗昕  (luoxin.net@gmail.com)
 For Vim version 7.0 and above
